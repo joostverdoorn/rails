@@ -17,7 +17,7 @@ module ActionCable
         # Note that anything marked as an identifier will automatically create a delegate by the same name on any
         # channel instances created off the connection.
         def identified_by(*identifiers)
-          Array(identifiers).each { |identifier| attr_accessor identifier }
+          Array(identifiers).select { |identifier| self.respond_to?(identifier) }.each { |identifier| attr_accessor identifier }
           self.identifiers += identifiers
         end
       end
